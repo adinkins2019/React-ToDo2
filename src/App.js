@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import TodoForm from './components/TodoComponents/TodoForm'
+import TodoList from './components/TodoComponents/TodoList'
 
 const todoData = [
   {
@@ -45,7 +47,7 @@ class App extends Component {
          if(taskId === todo.id){
            return  {
              ...todo, 
-             completed: !completed
+             completed: !todo.completed
            }
          }
         return todo;
@@ -56,12 +58,24 @@ class App extends Component {
 
  clearCompleted = e => {
    e.preventDefault();
+   this.setState({
+     todos: this.state.todos.filter(todo => todo.completed === false)
+   })
    
  }
   render() {
     return (
       <div>
         <h2>Welcome to your Todo App!</h2>
+        <TodoForm 
+          addTodo={this.state.addTodo}
+          clearCompleted={this.state.clearCompleted}
+        />
+        <TodoList 
+          todos={this.state.todos}
+          toggleTodo={this.state.toggleTodo}
+
+        />
       </div>
     );
   }
